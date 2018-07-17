@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ -n "$CONTEXT_PATH" ]; then
+  xmlstarlet ed -L \
+    --update "/Configure/Set[@name='contextPath']" \
+    --value $CONTEXT_PATH \
+    $ARCHIVA_HOME/contexts/archiva.xml;
+fi
+
+$ARCHIVA_HOME/bin/archiva console

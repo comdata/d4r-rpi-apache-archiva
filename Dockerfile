@@ -39,10 +39,14 @@ RUN tar -C /tmp -xvzf /tmp/${wrapper_package} \
 	&& cp /tmp/${wrapper_name}/bin/wrapper ${ARCHIVA_HOME}/bin \
 	&& rm -rf /tmp/${wrapper_name}
 
+COPY run-archiva /usr/local/bin
+
 RUN groupadd -g ${archiva_gid} ${archiva_group} \
 	&& useradd -u ${archiva_uid} -g ${archiva_gid} -m -s /bin/bash ${archiva_user} \
 	&& chown -R ${archiva_uid}:${archiva_gid} ${ARCHIVA_HOME} \
 	&& chown -R ${archiva_uid}:${archiva_gid} ${ARCHIVA_BASE}
+
+RUN apt-get -y install xmlstarlet
 
 USER ${archiva_user}
 
@@ -50,6 +54,4 @@ EXPOSE 8080
 
 VOLUME ${ARCHIVA_BASE}
 
-WORKDIR ${ARCHIVA_HOME}
-
-CMD ["./bin/archiva", "console"]
+CMD ["run-archiva"]
