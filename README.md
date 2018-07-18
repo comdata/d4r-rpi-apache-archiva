@@ -1,4 +1,4 @@
-# rpi-jenkins
+# rpi-apache-archiva
 Docker image for running Apache Archiva on a Raspberry Pi.
 
 # How to Run
