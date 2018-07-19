@@ -13,6 +13,9 @@ ENV ARCHIVA_VERSION=${archiva_version}
 ENV ARCHIVA_HOME=/opt/apache-archiva-${ARCHIVA_VERSION}
 ENV ARCHIVA_BASE=/var/archiva
 
+RUN apt-get -y install xmlstarlet \
+	&& mkdir $ARCHIVA_BASE
+
 RUN curl -fSL ${archiva_download_url} -o /tmp/${archiva_package} \
 	&& echo "${archiva_download_sha256_hash} /tmp/${archiva_package}" | sha256sum -c - \
 	&& tar -C /opt -xvzf /tmp/${archiva_package} \
@@ -34,9 +37,6 @@ RUN curl -fSL ${wrapper_download_url} -o /tmp/${wrapper_package} \
 	&& rm -rf /tmp/${wrapper_name} 
 
 COPY run-archiva /usr/local/bin
-
-RUN apt-get -y install xmlstarlet \
-	&& mkdir $ARCHIVA_BASE
 
 RUN groupadd -g ${archiva_gid} ${archiva_group} \
 	&& useradd -u ${archiva_uid} -g ${archiva_gid} -m -s /bin/bash ${archiva_user} \

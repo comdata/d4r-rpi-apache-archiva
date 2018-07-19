@@ -7,7 +7,7 @@ if [ -n "$CONTEXT_PATH" ]; then
     $ARCHIVA_HOME/contexts/archiva.xml;
 fi
 
-if [ -z "$(ls -A $ARCHIVA_BASE)" ]; then
+if [ -z "$(ls $ARCHIVA_BASE)" ]; then
   mkdir $ARCHIVA_BASE/logs;
   mkdir $ARCHIVA_BASE/data;
   mkdir $ARCHIVA_BASE/temp;
