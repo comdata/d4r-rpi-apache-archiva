@@ -18,35 +18,30 @@ RUN curl -fSL ${archiva_download_url} -o /tmp/${archiva_package} \
 	&& tar -C /opt -xvzf /tmp/${archiva_package} \
 	&& rm /tmp/${archiva_package}
 
-RUN mkdir -p ${ARCHIVA_BASE}/logs \
-	&& mkdir ${ARCHIVA_BASE}/data \
-	&& mkdir ${ARCHIVA_BASE}/temp \
-	&& mkdir ${ARCHIVA_BASE}/conf \
-	&& cp -rb ${ARCHIVA_HOME}/conf/. ${ARCHIVA_BASE}/conf
-
 ARG wrapper_version=3.5.35
 ARG wrapper_name=wrapper-linux-armhf-32-${wrapper_version}
 ARG wrapper_package=${wrapper_name}.tar.gz
 ARG wrapper_download_url=https://download.tanukisoftware.com/wrapper/${wrapper_version}/${wrapper_package}
 
-RUN curl -fSL ${wrapper_download_url} -o /tmp/${wrapper_package}
-
-RUN tar -C /tmp -xvzf /tmp/${wrapper_package} \ 
+RUN curl -fSL ${wrapper_download_url} -o /tmp/${wrapper_package} \
+	&& tar -C /tmp -xvzf /tmp/${wrapper_package} \ 
+	&& rm /tmp/${wrapper_package} \
 	&& mv ${ARCHIVA_HOME}/lib/wrapper.jar ${ARCHIVA_HOME}/lib/wrapper.jar.org \
 	&& cp /tmp/${wrapper_name}/lib/wrapper.jar ${ARCHIVA_HOME}/lib \ 
 	&& chmod +x ${ARCHIVA_HOME}/lib/wrapper.jar \
 	&& cp /tmp/${wrapper_name}/lib/libwrapper.so ${ARCHIVA_HOME}/lib \
 	&& cp /tmp/${wrapper_name}/bin/wrapper ${ARCHIVA_HOME}/bin \
-	&& rm -rf /tmp/${wrapper_name}
+	&& rm -rf /tmp/${wrapper_name} 
 
 COPY run-archiva /usr/local/bin
+
+RUN apt-get -y install xmlstarlet \
+	&& mkdir $ARCHIVA_BASE
 
 RUN groupadd -g ${archiva_gid} ${archiva_group} \
 	&& useradd -u ${archiva_uid} -g ${archiva_gid} -m -s /bin/bash ${archiva_user} \
 	&& chown -R ${archiva_uid}:${archiva_gid} ${ARCHIVA_HOME} \
 	&& chown -R ${archiva_uid}:${archiva_gid} ${ARCHIVA_BASE}
-
-RUN apt-get -y install xmlstarlet
 
 USER ${archiva_user}
 
