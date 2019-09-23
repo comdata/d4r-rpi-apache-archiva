@@ -1,4 +1,4 @@
-FROM rdeinum/rpi-oracle-java:8-jdk
+FROM adoptopenjdk:latest
 
 ARG archiva_version=2.2.3
 ARG archiva_package=apache-archiva-${archiva_version}-bin.tar.gz
@@ -13,6 +13,7 @@ ENV ARCHIVA_VERSION=${archiva_version}
 ENV ARCHIVA_HOME=/opt/apache-archiva-${ARCHIVA_VERSION}
 ENV ARCHIVA_BASE=/var/archiva
 
+RUN apt update
 RUN apt-get -y install xmlstarlet \
 	&& mkdir $ARCHIVA_BASE
 
