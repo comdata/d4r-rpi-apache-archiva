@@ -1,4 +1,5 @@
-FROM adoptopenjdk:latest
+
+FROM adoptopenjdk:8u222-b10-jdk-hotspot-bionic
 
 ARG archiva_version=2.2.3
 ARG archiva_package=apache-archiva-${archiva_version}-bin.tar.gz
