@@ -9,12 +9,12 @@ docker run \
   -v archiva:/var/archiva \
   --restart=always \
   --detach \
-  rdeinum/rpi-apache-archiva  
+  comdata456/rpi-apache-archiva  
 ```
 
 The default context path used for Apache Archiva is '/'. If you would like a different context path pass allong 'CONTEXT\_PATH' with a custom context path as an environment variable to *docker run*.
 
 # Links
-Docker Hub: https://hub.docker.com/r/rdeinum/rpi-apache-archiva
+Docker Hub: https://hub.docker.com/r/comdata456/rpi-apache-archiva
 
-Source: https://bitbucket.org/rdeinum/d4r-rpi-apache-archiva
+Source: https://github.com/comdata/d4r-rpi-apache-archiva
