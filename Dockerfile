@@ -1,10 +1,10 @@
 
 FROM adoptopenjdk:8u222-b10-jdk-hotspot-bionic
 
-ARG archiva_version=2.2.3
+ARG archiva_version=2.2.4
 ARG archiva_package=apache-archiva-${archiva_version}-bin.tar.gz
-ARG archiva_download_url=http://apache.mirror.triple-it.nl/archiva/2.2.3/binaries/${archiva_package}
-ARG archiva_download_sha256_hash=cf90d097e7c2763f6ff8df458b64be0348b35847de8b238c3e1e28e006da8bad
+ARG archiva_download_url=http://apache.mirror.triple-it.nl/archiva/2.2.4/binaries/${archiva_package}
+ARG archiva_download_sha256_hash=ad099c451529d566db8b5ad6cf2d8bafc6aa2cc3d225c39fd374cad420a6643c
 ARG archiva_user=archiva
 ARG archiva_group=archiva
 ARG archiva_uid=1000
